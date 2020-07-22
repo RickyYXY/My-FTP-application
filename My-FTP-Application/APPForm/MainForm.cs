@@ -8,16 +8,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FTPUtils;
 
 namespace APPForm
 {
     public partial class MainForm : Form
     {
-        //private FtpHelper ftpHelper;
+        //private ftpClient ftpClient;
 
         private  DateTime clickTime;
 
         private bool isClicked = false;
+
+        private FTPClient ftpClient;
 
         public MainForm()
         {
@@ -119,41 +122,167 @@ namespace APPForm
         private void toolStripButton2_Click(object sender, EventArgs e)
         {
             //如果就目录,先设置上级目录，再列出目录
-            //ftpHelper.SetPrePath();
+            //ftpClient.SetPrePath();
             //this.ListDirectory();
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            //try
-            //{
-            //    if (CheckInfo())
-            //    {
-            //        string ipAddr = this.txtAddress.Text.Trim();
-            //        string port = this.txtPort.Text.Trim();
-            //        string userName = this.txtUserName.Text.Trim();
-            //        string password = this.txtPassword.Text.Trim();
-            //        ftpHelper = new FtpHelper(ipAddr, port, userName, password);
-            //        ListDirectory();
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-
-            //}
+            try
+            {
+                if (CheckUserInfo())
+                {
+                    string ipAddr = this.toolStripTextBoxIpAddr.Text.Trim();
+                    string port = this.toolStripTextBoxPort.Text.Trim();
+                    string userName = this.toolStripTextBoxName.Text.Trim();
+                    string password = this.toolStripTextBoxPassword.Text.Trim();
+                    ftpClient = new FTPClient(ipAddr, port, userName, password);
+                    ShowFilesDirectory();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
-        //private bool CheckInfo()
-        //{
-        //    //string ipAddr = this.txtAddress.Text.Trim();
-        //    //string port = this.txtPort.Text.Trim();
-        //    //string userName = this.txtUserName.Text.Trim();
-        //    //string password = this.txtPassword.Text.Trim();
-        //    //if (string.IsNullOrEmpty(ipAddr) || string.IsNullOrEmpty(port) || string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password))
-        //    //{
-        //    //    MessageBox.Show("请输入登录信息");
-        //    //    return false;
-        //    //}
-        //    //return true;
-        //}
+
+        /// <summary>
+        /// 检查用户登录信息
+        /// </summary>
+        /// <returns></returns>
+        private bool CheckUserInfo()
+        {
+            string ipaddr = this.toolStripTextBoxIpAddr.Text.Trim();
+            string port = this.toolStripTextBoxPort.Text.Trim();
+            string username = this.toolStripTextBoxName.Text.Trim();
+            string password = this.toolStripTextBoxPassword.Text.Trim();
+            if (string.IsNullOrEmpty(ipaddr) || string.IsNullOrEmpty(port)
+                || string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            {
+                MessageBox.Show("请输入登录信息");
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// 服务器端文件图标鼠标事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnTmp_MouseDown(object sender, MouseEventArgs e)
+        {
+            //如果是右键按下
+            if (e.Button == MouseButtons.Right) //右键按下显示菜单
+            {
+                Button btnTmp = (Button)sender;
+                string name = btnTmp.Text;
+                menuSaveAs.Tag = name;
+                menuDelete.Tag = name;
+            }
+        }
+
+        /// <summary>
+        /// 双击事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnTmp_DoubleClick(object sender, EventArgs e)
+        {
+            Button btnTmp = (Button)sender;
+            FtpContentType contentType;
+            if (Enum.TryParse(btnTmp.Tag.ToString(), out contentType))
+            {
+                switch (contentType)
+                {
+                    case FtpContentType.folder:
+                        //如果是目录，则重新设置当前的相对路径
+                        ftpClient.SetRelatePath(btnTmp.Text);
+                        ShowFilesDirectory();//再次列出目录
+                        break;
+                    default:
+                        MessageBox.Show("非目录，请点击右键", "提示", MessageBoxButtons.OK);
+                        break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 用于模拟双击事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnTmp_Click(object sender, EventArgs e)
+        {
+            if (isClicked)
+            {
+                TimeSpan span = DateTime.Now - clickTime;
+                if (span.Milliseconds < SystemInformation.DoubleClickTime)
+                {
+                    btnTmp_DoubleClick(sender, e);
+                    isClicked = false;
+                }
+            }
+            else
+            {
+                isClicked = true;
+                clickTime = DateTime.Now;
+            }
+        }
+
+        #region FTP功能部分
+        /// <summary>
+        /// 在对应板块展示服务器端文件的内容
+        /// </summary>
+        private void ShowFilesDirectory()
+        {
+            bool isOk = false;
+            string[] arrAccept = ftpClient.GetFilesDirectory(out isOk);//调用Ftp目录显示功能
+            if (isOk)
+            {
+                FTPflowLayoutPanel.Controls.Clear();
+                foreach (string accept in arrAccept)
+                {
+                    string name = accept.Substring(39);
+
+                    //创建一个临时控件用于显示ftp服务器端的文件
+                    Button btnTmp = new Button()
+                    {
+                        BackColor = Color.White,
+                        TextImageRelation = TextImageRelation.ImageAboveText,
+                        Text = name,
+                        Width = 80,
+                        Height = 80
+                    };
+
+                    btnTmp.FlatAppearance.BorderSize = 0;
+                    btnTmp.FlatStyle = FlatStyle.Flat;
+
+                    if (accept.IndexOf("<DIR>") != -1)
+                    {
+                        btnTmp.Image = global::APPForm.Properties.Resources.folder.ToBitmap();
+                        btnTmp.Tag = FtpContentType.folder;
+                    }
+                    else
+                    {
+                        btnTmp.Image = global::APPForm.Properties.Resources.file.ToBitmap();
+                        btnTmp.Tag = FtpContentType.file;
+                        btnTmp.ContextMenuStrip = menuRightKey;
+                        btnTmp.MouseDown += new MouseEventHandler(BtnTmp_MouseDown);
+                    }
+
+                    //btnTmp.DoubleClick += new EventHandler(btnTmp_DoubleClick);
+                    btnTmp.Click += new EventHandler(btnTmp_Click);//Button中不支持双击事件，所以用单击事件模拟双击
+                    FTPflowLayoutPanel.Controls.Add(btnTmp);
+                }
+                lblMsg.Text = "服务器端文件载入成功";
+            }
+            else
+            {
+                ftpClient.SetPrePath();
+                lblMsg.Text = "链接失败，或者没有数据";
+            }
+        }
+        #endregion
     }
 }
