@@ -234,51 +234,58 @@ namespace APPForm
         /// </summary>
         private void ShowFilesDirectory()
         {
-            bool isOk = false;
-            string[] arrAccept = ftpClient.GetFilesDirectory(out isOk);//调用Ftp目录显示功能
-            if (isOk)
+            try
             {
-                FTPflowLayoutPanel.Controls.Clear();
-                foreach (string accept in arrAccept)
+                bool isOk = false;
+                string[] arrAccept = ftpClient.GetFilesDirectory(out isOk);//调用Ftp目录显示功能
+                if (isOk)
                 {
-                    string name = accept.Substring(39);
-
-                    //创建一个临时控件用于显示ftp服务器端的文件
-                    Button btnTmp = new Button()
+                    FTPflowLayoutPanel.Controls.Clear();
+                    foreach (string accept in arrAccept)
                     {
-                        BackColor = Color.White,
-                        TextImageRelation = TextImageRelation.ImageAboveText,
-                        Text = name,
-                        Width = 80,
-                        Height = 80
-                    };
+                        string name = accept.Substring(39);
 
-                    btnTmp.FlatAppearance.BorderSize = 0;
-                    btnTmp.FlatStyle = FlatStyle.Flat;
+                        //创建一个临时控件用于显示ftp服务器端的文件
+                        Button btnTmp = new Button()
+                        {
+                            BackColor = Color.White,
+                            TextImageRelation = TextImageRelation.ImageAboveText,
+                            Text = name,
+                            Width = 80,
+                            Height = 80
+                        };
 
-                    if (accept.IndexOf("<DIR>") != -1)
-                    {
-                        btnTmp.Image = global::APPForm.Properties.Resources.folder.ToBitmap();
-                        btnTmp.Tag = FtpContentType.folder;
+                        btnTmp.FlatAppearance.BorderSize = 0;
+                        btnTmp.FlatStyle = FlatStyle.Flat;
+
+                        if (accept.IndexOf("<DIR>") != -1)
+                        {
+                            btnTmp.Image = global::APPForm.Properties.Resources.folder.ToBitmap();
+                            btnTmp.Tag = FtpContentType.folder;
+                        }
+                        else
+                        {
+                            btnTmp.Image = global::APPForm.Properties.Resources.file.ToBitmap();
+                            btnTmp.Tag = FtpContentType.file;
+                            btnTmp.ContextMenuStrip = menuRightKey;
+                            btnTmp.MouseDown += new MouseEventHandler(BtnTmp_MouseDown);
+                        }
+
+                        //btnTmp.DoubleClick += new EventHandler(btnTmp_DoubleClick);
+                        btnTmp.Click += new EventHandler(btnTmp_Click);//Button中不支持双击事件，所以用单击事件模拟双击
+                        FTPflowLayoutPanel.Controls.Add(btnTmp);
                     }
-                    else
-                    {
-                        btnTmp.Image = global::APPForm.Properties.Resources.file.ToBitmap();
-                        btnTmp.Tag = FtpContentType.file;
-                        btnTmp.ContextMenuStrip = menuRightKey;
-                        btnTmp.MouseDown += new MouseEventHandler(BtnTmp_MouseDown);
-                    }
-
-                    //btnTmp.DoubleClick += new EventHandler(btnTmp_DoubleClick);
-                    btnTmp.Click += new EventHandler(btnTmp_Click);//Button中不支持双击事件，所以用单击事件模拟双击
-                    FTPflowLayoutPanel.Controls.Add(btnTmp);
+                    lblMsg.Text = "服务器端文件载入成功";
                 }
-                lblMsg.Text = "服务器端文件载入成功";
+                else
+                {
+                    ftpClient.SetPrePath();
+                    lblMsg.Text = "链接失败，或者没有数据";
+                }
             }
-            else
+            catch(Exception ex)
             {
-                ftpClient.SetPrePath();
-                lblMsg.Text = "链接失败，或者没有数据";
+                MessageBox.Show(ex.Message);
             }
         }
         #endregion
