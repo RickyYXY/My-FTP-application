@@ -25,11 +25,9 @@ namespace APPForm
         public MainForm()
         {
             InitializeComponent();
-        }
-
-        private void toolStripLabel1_Click(object sender, EventArgs e)
-        {
-
+            //密码显示为"*"
+            TextBox tb = toolStripTextBoxPassword.Control as TextBox;
+            tb.PasswordChar = '*';
         }
 
         //初始化
@@ -284,5 +282,12 @@ namespace APPForm
             }
         }
         #endregion
+
+        //返回上级文件夹
+        private void toolStripButtonReturn_Click(object sender, EventArgs e)
+        {
+            ftpClient.SetPrePath();
+            ShowFilesDirectory();
+        }
     }
 }

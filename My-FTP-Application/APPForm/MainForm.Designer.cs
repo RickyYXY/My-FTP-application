@@ -61,7 +61,7 @@
             this.lblMsg = new System.Windows.Forms.ToolStripStatusLabel();
             this.btnLogin = new System.Windows.Forms.ToolStripButton();
             this.toolStripForFTP = new System.Windows.Forms.ToolStrip();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonReturn = new System.Windows.Forms.ToolStripButton();
             this.toolStripInfo.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -101,7 +101,6 @@
             this.toolStripLabel1.Name = "toolStripLabel1";
             this.toolStripLabel1.Size = new System.Drawing.Size(54, 24);
             this.toolStripLabel1.Text = "主机：";
-            this.toolStripLabel1.Click += new System.EventHandler(this.toolStripLabel1_Click);
             // 
             // toolStripTextBoxIpAddr
             // 
@@ -328,20 +327,21 @@
             // 
             this.toolStripForFTP.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStripForFTP.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton2});
+            this.toolStripButtonReturn});
             this.toolStripForFTP.Location = new System.Drawing.Point(4, 4);
             this.toolStripForFTP.Name = "toolStripForFTP";
             this.toolStripForFTP.Size = new System.Drawing.Size(811, 27);
             this.toolStripForFTP.TabIndex = 2;
             this.toolStripForFTP.Text = "toolStrip2";
             // 
-            // toolStripButton2
+            // toolStripButtonReturn
             // 
-            this.toolStripButton2.Image = global::APPForm.Properties.Resources.ww;
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(123, 24);
-            this.toolStripButton2.Text = "返回上级目录";
+            this.toolStripButtonReturn.Image = global::APPForm.Properties.Resources.ww;
+            this.toolStripButtonReturn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonReturn.Name = "toolStripButtonReturn";
+            this.toolStripButtonReturn.Size = new System.Drawing.Size(123, 24);
+            this.toolStripButtonReturn.Text = "返回上级目录";
+            this.toolStripButtonReturn.Click += new System.EventHandler(this.toolStripButtonReturn_Click);
             // 
             // MainForm
             // 
@@ -407,7 +407,7 @@
         private System.Windows.Forms.ToolStripMenuItem menuDelete;
         private System.Windows.Forms.ToolStripStatusLabel lblMsg;
         private System.Windows.Forms.ToolStrip toolStripForFTP;
-        private System.Windows.Forms.ToolStripButton toolStripButton2;
+        private System.Windows.Forms.ToolStripButton toolStripButtonReturn;
     }
 }
 

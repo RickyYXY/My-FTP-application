@@ -105,7 +105,7 @@ namespace FTPUtils
             //设置uri
             string uri = string.Format("ftp://{0}:{1}{2}", IpAddr, Port, RelatePath);
             //创建请求
-            FtpWebRequest request; 
+            FtpWebRequest request;
             request = (FtpWebRequest)FtpWebRequest.Create(uri);
             //设置请求参数
             request.UseBinary = true;
@@ -130,7 +130,7 @@ namespace FTPUtils
             List<string> lstAccpet = new List<string>();
             int clock = 0;
             isOk = false;
-            while (clock <= 10)
+            while (clock <= 5)
             {
                 if (response.StatusCode == statusCode)
                 {
@@ -146,8 +146,11 @@ namespace FTPUtils
                     isOk = true;
                     break;
                 }
-                clock++;
-                Thread.Sleep(200);
+                else
+                {
+                    clock++;
+                    Thread.Sleep(200);
+                }
             }
             response.Close();
             return lstAccpet.ToArray();
