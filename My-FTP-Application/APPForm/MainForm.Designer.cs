@@ -353,6 +353,7 @@
             this.menuDelete.Name = "menuDelete";
             this.menuDelete.Size = new System.Drawing.Size(123, 24);
             this.menuDelete.Text = "删除";
+            this.menuDelete.Click += new System.EventHandler(this.menuDelete_Click);
             // 
             // MainForm
             // 

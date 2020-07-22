@@ -258,16 +258,16 @@ namespace APPForm
                         btnTmp.FlatAppearance.BorderSize = 0;
                         btnTmp.FlatStyle = FlatStyle.Flat;
 
-                        if (accept.IndexOf("<DIR>") != -1)
+                        if (accept.IndexOf("<DIR>") != -1)       //如果是文件夹
                         {
-                            btnTmp.Image = global::APPForm.Properties.Resources.folder.ToBitmap();
+                            btnTmp.Image = Properties.Resources.folder.ToBitmap();
                             btnTmp.Tag = FtpContentType.folder;
                         }
-                        else
+                        else          //如果是文件
                         {
-                            btnTmp.Image = global::APPForm.Properties.Resources.file.ToBitmap();
+                            btnTmp.Image = Properties.Resources.file.ToBitmap();
                             btnTmp.Tag = FtpContentType.file;
-                            btnTmp.ContextMenuStrip = menuRightKey;
+                            btnTmp.ContextMenuStrip = menuRightKey; //只有文件右键才有按钮出现
                             btnTmp.MouseDown += new MouseEventHandler(BtnTmp_MouseDown);
                         }
 
@@ -300,6 +300,25 @@ namespace APPForm
         private void toolStripButtonRefresh_Click(object sender, EventArgs e)
         {
             ShowFilesDirectory();
+        }
+
+        private void menuDelete_Click(object sender, EventArgs e)
+        {
+            ToolStripMenuItem menuItem = (ToolStripMenuItem)sender;
+            string name = menuItem.Tag.ToString();
+            ftpClient.RelatePath = string.Format("{0}/{1}",ftpClient.RelatePath, name);
+            bool isOk = false;
+            ftpClient.DeleteFile(out isOk);
+            ftpClient.SetPrePath();
+            if (isOk)
+            {
+                ShowFilesDirectory();
+                lblMsg.Text = "删除成功";
+            }
+            else
+            {
+                lblMsg.Text = "删除失败";
+            }
         }
     }
 }

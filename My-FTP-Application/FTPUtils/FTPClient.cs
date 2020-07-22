@@ -65,7 +65,7 @@ namespace FTPUtils
         {
             string method = WebRequestMethods.Ftp.ListDirectoryDetails;
             var statusCode = FtpStatusCode.DataAlreadyOpen;
-            FtpWebResponse response = callFtp(method);
+            FtpWebResponse response = CallFTP(method);
             return ReadByLine(response, statusCode, out isOk);
         }
 
@@ -96,11 +96,27 @@ namespace FTPUtils
         }
 
         /// <summary>
+        /// 删除服务器上的文件
+        /// </summary>
+        /// <param name="isOK"></param>
+        public void DeleteFile(out bool isOK)
+        {
+            string method = WebRequestMethods.Ftp.DeleteFile;
+            var statusCode = FtpStatusCode.FileActionOK;
+            FtpWebResponse response = CallFTP(method);
+            if (statusCode == response.StatusCode)
+                isOK = true;
+            else
+                isOK = false;
+            response.Close();
+        }
+
+        /// <summary>
         /// 请求FTP服务
         /// </summary>
         /// <param name="method"></param>
         /// <returns></returns>
-        private FtpWebResponse callFtp(string method)
+        private FtpWebResponse CallFTP(string method)
         {
             //设置uri
             string uri = string.Format("ftp://{0}:{1}{2}", IpAddr, Port, RelatePath);
@@ -146,14 +162,13 @@ namespace FTPUtils
                     isOk = true;
                     break;
                 }
-                else
-                {
-                    clock++;
-                    Thread.Sleep(200);
-                }
+                clock++;
+                Thread.Sleep(200);
             }
             response.Close();
             return lstAccpet.ToArray();
         }
+
+        
     }
 }
