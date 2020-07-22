@@ -43,6 +43,7 @@
             this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripTextBoxPassword = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnLogin = new System.Windows.Forms.ToolStripButton();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.treeLocal = new System.Windows.Forms.TreeView();
@@ -51,26 +52,26 @@
             this.imgList = new System.Windows.Forms.ImageList(this.components);
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.FTPflowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.toolStripForFTP = new System.Windows.Forms.ToolStrip();
+            this.toolStripButtonReturn = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonRefresh = new System.Windows.Forms.ToolStripButton();
             this.statusStripMain = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
+            this.lblMsg = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuRightKey = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.FTPflowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.menuSaveAs = new System.Windows.Forms.ToolStripMenuItem();
             this.menuDelete = new System.Windows.Forms.ToolStripMenuItem();
-            this.lblMsg = new System.Windows.Forms.ToolStripStatusLabel();
-            this.btnLogin = new System.Windows.Forms.ToolStripButton();
-            this.toolStripForFTP = new System.Windows.Forms.ToolStrip();
-            this.toolStripButtonReturn = new System.Windows.Forms.ToolStripButton();
             this.toolStripInfo.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.menuLocal.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.toolStripForFTP.SuspendLayout();
             this.statusStripMain.SuspendLayout();
             this.menuRightKey.SuspendLayout();
-            this.toolStripForFTP.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStripInfo
@@ -167,6 +168,15 @@
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(6, 27);
             // 
+            // btnLogin
+            // 
+            this.btnLogin.Image = global::APPForm.Properties.Resources.ftp;
+            this.btnLogin.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnLogin.Name = "btnLogin";
+            this.btnLogin.Size = new System.Drawing.Size(93, 24);
+            this.btnLogin.Text = "点击连接";
+            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
+            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
@@ -255,6 +265,44 @@
             this.tabPage2.Text = "FTP服务器";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // FTPflowLayoutPanel
+            // 
+            this.FTPflowLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.FTPflowLayoutPanel.Location = new System.Drawing.Point(4, 31);
+            this.FTPflowLayoutPanel.Name = "FTPflowLayoutPanel";
+            this.FTPflowLayoutPanel.Size = new System.Drawing.Size(811, 625);
+            this.FTPflowLayoutPanel.TabIndex = 0;
+            // 
+            // toolStripForFTP
+            // 
+            this.toolStripForFTP.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.toolStripForFTP.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripButtonReturn,
+            this.toolStripButtonRefresh});
+            this.toolStripForFTP.Location = new System.Drawing.Point(4, 4);
+            this.toolStripForFTP.Name = "toolStripForFTP";
+            this.toolStripForFTP.Size = new System.Drawing.Size(811, 27);
+            this.toolStripForFTP.TabIndex = 2;
+            this.toolStripForFTP.Text = "toolStrip2";
+            // 
+            // toolStripButtonReturn
+            // 
+            this.toolStripButtonReturn.Image = global::APPForm.Properties.Resources.ww;
+            this.toolStripButtonReturn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonReturn.Name = "toolStripButtonReturn";
+            this.toolStripButtonReturn.Size = new System.Drawing.Size(123, 24);
+            this.toolStripButtonReturn.Text = "返回上级目录";
+            this.toolStripButtonReturn.Click += new System.EventHandler(this.toolStripButtonReturn_Click);
+            // 
+            // toolStripButtonRefresh
+            // 
+            this.toolStripButtonRefresh.Image = global::APPForm.Properties.Resources.Refresh;
+            this.toolStripButtonRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonRefresh.Name = "toolStripButtonRefresh";
+            this.toolStripButtonRefresh.Size = new System.Drawing.Size(63, 24);
+            this.toolStripButtonRefresh.Text = "刷新";
+            this.toolStripButtonRefresh.Click += new System.EventHandler(this.toolStripButtonRefresh_Click);
+            // 
             // statusStripMain
             // 
             this.statusStripMain.ImageScalingSize = new System.Drawing.Size(20, 20);
@@ -280,6 +328,11 @@
             this.toolStripProgressBar1.Name = "toolStripProgressBar1";
             this.toolStripProgressBar1.Size = new System.Drawing.Size(133, 18);
             // 
+            // lblMsg
+            // 
+            this.lblMsg.Name = "lblMsg";
+            this.lblMsg.Size = new System.Drawing.Size(0, 20);
+            // 
             // menuRightKey
             // 
             this.menuRightKey.ImageScalingSize = new System.Drawing.Size(20, 20);
@@ -288,14 +341,6 @@
             this.menuDelete});
             this.menuRightKey.Name = "menuRightKey";
             this.menuRightKey.Size = new System.Drawing.Size(124, 52);
-            // 
-            // FTPflowLayoutPanel
-            // 
-            this.FTPflowLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.FTPflowLayoutPanel.Location = new System.Drawing.Point(4, 31);
-            this.FTPflowLayoutPanel.Name = "FTPflowLayoutPanel";
-            this.FTPflowLayoutPanel.Size = new System.Drawing.Size(811, 625);
-            this.FTPflowLayoutPanel.TabIndex = 0;
             // 
             // menuSaveAs
             // 
@@ -308,40 +353,6 @@
             this.menuDelete.Name = "menuDelete";
             this.menuDelete.Size = new System.Drawing.Size(123, 24);
             this.menuDelete.Text = "删除";
-            // 
-            // lblMsg
-            // 
-            this.lblMsg.Name = "lblMsg";
-            this.lblMsg.Size = new System.Drawing.Size(0, 20);
-            // 
-            // btnLogin
-            // 
-            this.btnLogin.Image = global::APPForm.Properties.Resources.ftp;
-            this.btnLogin.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(93, 24);
-            this.btnLogin.Text = "点击连接";
-            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
-            // 
-            // toolStripForFTP
-            // 
-            this.toolStripForFTP.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.toolStripForFTP.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButtonReturn});
-            this.toolStripForFTP.Location = new System.Drawing.Point(4, 4);
-            this.toolStripForFTP.Name = "toolStripForFTP";
-            this.toolStripForFTP.Size = new System.Drawing.Size(811, 27);
-            this.toolStripForFTP.TabIndex = 2;
-            this.toolStripForFTP.Text = "toolStrip2";
-            // 
-            // toolStripButtonReturn
-            // 
-            this.toolStripButtonReturn.Image = global::APPForm.Properties.Resources.ww;
-            this.toolStripButtonReturn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonReturn.Name = "toolStripButtonReturn";
-            this.toolStripButtonReturn.Size = new System.Drawing.Size(123, 24);
-            this.toolStripButtonReturn.Text = "返回上级目录";
-            this.toolStripButtonReturn.Click += new System.EventHandler(this.toolStripButtonReturn_Click);
             // 
             // MainForm
             // 
@@ -365,11 +376,11 @@
             this.tabControl2.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.toolStripForFTP.ResumeLayout(false);
+            this.toolStripForFTP.PerformLayout();
             this.statusStripMain.ResumeLayout(false);
             this.statusStripMain.PerformLayout();
             this.menuRightKey.ResumeLayout(false);
-            this.toolStripForFTP.ResumeLayout(false);
-            this.toolStripForFTP.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -408,6 +419,7 @@
         private System.Windows.Forms.ToolStripStatusLabel lblMsg;
         private System.Windows.Forms.ToolStrip toolStripForFTP;
         private System.Windows.Forms.ToolStripButton toolStripButtonReturn;
+        private System.Windows.Forms.ToolStripButton toolStripButtonRefresh;
     }
 }
 

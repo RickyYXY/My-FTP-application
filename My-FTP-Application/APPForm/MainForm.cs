@@ -289,5 +289,10 @@ namespace APPForm
             ftpClient.SetPrePath();
             ShowFilesDirectory();
         }
+
+        private void toolStripButtonRefresh_Click(object sender, EventArgs e)
+        {
+            ShowFilesDirectory();
+        }
     }
 }
