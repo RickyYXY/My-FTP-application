@@ -114,7 +114,11 @@ namespace APPForm
         //右键点击上传
         private void menuLoad_Click(object sender, EventArgs e)
         {
-            
+            if (ftpClient == null)
+            {
+                MessageBox.Show("请先登录！");
+                return;
+            }
         }
 
         private void toolStripButton2_Click(object sender, EventArgs e)
@@ -293,12 +297,22 @@ namespace APPForm
         //返回上级文件夹
         private void toolStripButtonReturn_Click(object sender, EventArgs e)
         {
+            if (ftpClient == null)
+            {
+                MessageBox.Show("请先登录！");
+                return;
+            }
             ftpClient.SetPrePath();
             ShowFilesDirectory();
         }
 
         private void toolStripButtonRefresh_Click(object sender, EventArgs e)
         {
+            if (ftpClient == null)
+            {
+                MessageBox.Show("请先登录！");
+                return;
+            }
             ShowFilesDirectory();
         }
 

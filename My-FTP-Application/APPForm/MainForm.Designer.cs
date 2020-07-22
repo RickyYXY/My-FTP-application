@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("计算机");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("计算机");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.toolStripInfo = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
@@ -208,10 +208,10 @@
             this.treeLocal.Location = new System.Drawing.Point(4, 4);
             this.treeLocal.Margin = new System.Windows.Forms.Padding(4);
             this.treeLocal.Name = "treeLocal";
-            treeNode2.Name = "节点0";
-            treeNode2.Text = "计算机";
+            treeNode1.Name = "节点0";
+            treeNode1.Text = "计算机";
             this.treeLocal.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2});
+            treeNode1});
             this.treeLocal.SelectedImageIndex = 0;
             this.treeLocal.Size = new System.Drawing.Size(423, 652);
             this.treeLocal.TabIndex = 0;
@@ -267,6 +267,7 @@
             // 
             // FTPflowLayoutPanel
             // 
+            this.FTPflowLayoutPanel.AutoScroll = true;
             this.FTPflowLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FTPflowLayoutPanel.Location = new System.Drawing.Point(4, 31);
             this.FTPflowLayoutPanel.Name = "FTPflowLayoutPanel";
