@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("计算机");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("计算机");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.toolStripInfo = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
@@ -208,10 +208,10 @@
             this.treeLocal.Location = new System.Drawing.Point(4, 4);
             this.treeLocal.Margin = new System.Windows.Forms.Padding(4);
             this.treeLocal.Name = "treeLocal";
-            treeNode1.Name = "节点0";
-            treeNode1.Text = "计算机";
+            treeNode2.Name = "节点0";
+            treeNode2.Text = "计算机";
             this.treeLocal.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
+            treeNode2});
             this.treeLocal.SelectedImageIndex = 0;
             this.treeLocal.Size = new System.Drawing.Size(423, 652);
             this.treeLocal.TabIndex = 0;
@@ -287,10 +287,10 @@
             // 
             // toolStripButtonReturn
             // 
-            this.toolStripButtonReturn.Image = global::APPForm.Properties.Resources.ww;
+            this.toolStripButtonReturn.Image = global::APPForm.Properties.Resources.Up;
             this.toolStripButtonReturn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonReturn.Name = "toolStripButtonReturn";
-            this.toolStripButtonReturn.Size = new System.Drawing.Size(123, 24);
+            this.toolStripButtonReturn.Size = new System.Drawing.Size(123, 28);
             this.toolStripButtonReturn.Text = "返回上级目录";
             this.toolStripButtonReturn.Click += new System.EventHandler(this.toolStripButtonReturn_Click);
             // 
@@ -299,7 +299,7 @@
             this.toolStripButtonRefresh.Image = global::APPForm.Properties.Resources.Refresh;
             this.toolStripButtonRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonRefresh.Name = "toolStripButtonRefresh";
-            this.toolStripButtonRefresh.Size = new System.Drawing.Size(63, 24);
+            this.toolStripButtonRefresh.Size = new System.Drawing.Size(63, 28);
             this.toolStripButtonRefresh.Text = "刷新";
             this.toolStripButtonRefresh.Click += new System.EventHandler(this.toolStripButtonRefresh_Click);
             // 

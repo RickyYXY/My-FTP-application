@@ -140,5 +140,8 @@
   <ItemGroup>
     <None Include="FTPImages\Refresh.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="FTPImages\Up.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
