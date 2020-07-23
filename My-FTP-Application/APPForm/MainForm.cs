@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using FTPUtils;
@@ -111,13 +112,34 @@ namespace APPForm
 
         /* 下面是ftp相关代码*/
         /*-------------------------------------------*/
-        //右键点击上传
+
+        /// <summary>
+        /// 右键上传
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void menuLoad_Click(object sender, EventArgs e)
         {
-            if (ftpClient == null)
+            try
             {
-                MessageBox.Show("请先登录！");
-                return;
+                if (ftpClient == null)
+                {
+                    MessageBox.Show("请先登录！");
+                    return;
+                }
+                ToolStripMenuItem mi = (ToolStripMenuItem)sender;
+                string path = mi.Tag.ToString();
+                if (File.Exists(path))
+                {
+                    ftpClient.RelatePath = string.Format("{0}/{1}", ftpClient.RelatePath, Path.GetFileName(path));
+                    ftpClient.Upload(path, updateProgress);
+                    ShowFilesDirectory();
+                    lblMsg.Text = "上传成功";
+                }
+            }
+            catch
+            {
+                lblMsg.Text = "上传失败";
             }
         }
 
@@ -333,6 +355,72 @@ namespace APPForm
             {
                 lblMsg.Text = "删除失败";
             }
+        }
+
+        /// <summary>
+        /// 右键另存为
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void menuSaveAs_Click(object sender, EventArgs e)
+        {
+            ToolStripMenuItem menuItem = (ToolStripMenuItem)sender;
+            string name = menuItem.Tag.ToString();
+            SaveFileDialog sfd = new SaveFileDialog()
+            {
+                FileName = name,
+                Filter = "All Files|(*.*)",
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+                Title = "另存为"
+            };
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                //下载文件
+                string filePath = sfd.FileName + ".temp";
+                ftpClient.RelatePath = string.Format("{0}/{1}", ftpClient.RelatePath, name);
+                try
+                {
+                    long size = 0;
+                    if (File.Exists(filePath))
+                    {
+                        using (FileStream outputStream = new FileStream(filePath, FileMode.Open))
+                        {
+                            size = outputStream.Length;
+                        }
+                    }
+                    //Thread threadDownload = new Thread(() => ftpClient.Download(filePath, size,updateProgress));
+                    //threadDownload.Start();
+                    //Thread threadWait = new Thread(() =>
+                    //{
+                    //    threadDownload.Join();
+                    //    MessageBox.Show("下载完成");
+                    //});
+                    //threadWait.Start();
+                    ftpClient.Download(filePath, size, updateProgress);
+                    //MessageBox.Show("下载完成");
+
+                    File.Delete(filePath.Substring(0, filePath.Length - 5));
+                    FileInfo fileInfo = new FileInfo(filePath);
+                    fileInfo.MoveTo(filePath.Substring(0, filePath.Length - 5));
+
+                    lblMsg.Text = "下载完成";
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    lblMsg.Text = "下载失败";
+                }
+            }
+        }
+
+        private void updateProgress(int total, int progress)
+        {
+            if(total == 0)
+            {
+                toolStripProgressBar1.Value = 100;
+                return;
+            }
+            toolStripProgressBar1.Value = (int)((double)progress / total * 100);
         }
     }
 }

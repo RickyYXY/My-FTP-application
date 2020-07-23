@@ -169,6 +169,198 @@ namespace FTPUtils
             return lstAccpet.ToArray();
         }
 
-        
+        public void Download(string filepath, long size, Action<int,int> updateProgress)
+        {
+            FtpWebRequest reqFTP, ftpsize;
+            Stream ftpStream = null;
+            FtpWebResponse response = null;
+            FileStream outputStream = null;
+            try
+            {
+                outputStream = new FileStream(filepath, FileMode.Append);
+                Uri uri = new Uri(string.Format("ftp://{0}:{1}{2}", IpAddr, Port, RelatePath));
+                ftpsize = (FtpWebRequest)FtpWebRequest.Create(uri);
+                ftpsize.UseBinary = true;
+                ftpsize.ContentOffset = size;
+
+                reqFTP = (FtpWebRequest)FtpWebRequest.Create(uri);
+                reqFTP.UseBinary = true;
+                reqFTP.KeepAlive = false;
+                reqFTP.ContentOffset = size;
+                ftpsize.Credentials = new NetworkCredential(UserName, Password);
+                reqFTP.Credentials = new NetworkCredential(UserName, Password);
+                ftpsize.Method = WebRequestMethods.Ftp.GetFileSize;
+                FtpWebResponse re = (FtpWebResponse)ftpsize.GetResponse();
+                long totalBytes = re.ContentLength;
+                re.Close();
+
+                reqFTP.Method = WebRequestMethods.Ftp.DownloadFile;
+                response = (FtpWebResponse)reqFTP.GetResponse();
+                ftpStream = response.GetResponseStream();
+                long totalDownloadedByte = size;
+                updateProgress((int)totalBytes, (int)totalDownloadedByte);
+                int bufferSize = 2048;
+                int readCount;
+                byte[] buffer = new byte[bufferSize];
+                readCount = ftpStream.Read(buffer, 0, bufferSize);
+                while (readCount > 0)
+                {
+                    totalDownloadedByte += readCount;
+                    outputStream.Write(buffer, 0, readCount);
+                    updateProgress((int)totalBytes, (int)totalDownloadedByte);
+                    readCount = ftpStream.Read(buffer, 0, bufferSize);
+                }
+                ftpStream.Close();
+                outputStream.Close();
+                response.Close();
+
+                //File.Delete(filepath.Substring(0, filepath.Length - 5));
+                //FileInfo fileInfo = new FileInfo(filepath);
+                //fileInfo.MoveTo(filepath.Substring(0, filepath.Length - 5));
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                if (ftpStream != null)
+                {
+                    ftpStream.Close();
+                }
+                if (outputStream != null)
+                {
+                    outputStream.Close();
+                }
+                if (response != null)
+                {
+                    response.Close();
+                }
+                SetPrePath();
+            }
+        }
+
+        public void Upload(string localPath, Action<int, int> updateProgress)
+        {
+            FileInfo fileInf = new FileInfo(localPath);
+            long allbye = fileInf.Length;
+            long startfilesize = GetFileSize();
+
+            long startbye = startfilesize;
+            updateProgress((int)allbye, (int)startfilesize);//更新进度条   
+
+            string uri = string.Format("ftp://{0}:{1}{2}", this.IpAddr, this.Port, this.RelatePath + ".temp");
+
+            FtpWebRequest request;
+            request = (FtpWebRequest)FtpWebRequest.Create(new Uri(uri));
+            request.Credentials = new NetworkCredential(UserName, Password);
+            request.KeepAlive = false;
+            request.Method = WebRequestMethods.Ftp.AppendFile;
+            request.UseBinary = true;
+            request.ContentLength = fileInf.Length;
+            request.Timeout = 10 * 1000;
+            int buffLength = 2048; 
+            byte[] buff = new byte[buffLength];
+            FileStream fs = fileInf.OpenRead();
+            Stream strm = null;
+            try
+            {
+                strm = request.GetRequestStream();
+                fs.Seek(startfilesize, 0);
+                int contentLen = fs.Read(buff, 0, buffLength);
+                while (contentLen != 0)
+                {
+                    strm.Write(buff, 0, contentLen);
+                    contentLen = fs.Read(buff, 0, buffLength);
+                    startbye += contentLen;
+                    updateProgress((int)allbye, (int)startbye);
+                    
+                }
+                strm.Close();
+                fs.Close();
+                Rename(fileInf.Name);
+                SetPrePath();
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                if (fs != null)
+                {
+                    fs.Close();
+                }
+                if (strm != null)
+                {
+                    strm.Close();
+                }
+            }
+        }
+
+        private long GetFileSize()
+        {
+            try
+            {
+                FtpWebRequest reqFTP;
+                //FileInfo fi = new FileInfo(filename);
+                //string uri;
+                //if (remoteFilepath.Length == 0)
+                //{
+                //    uri = "ftp://" + FtpServerIP + "/" + fi.Name;
+                //}
+                //else
+                //{
+                //    uri = "ftp://" + FtpServerIP + "/" + remoteFilepath + "/" + fi.Name;
+                //}
+                Uri uri = new Uri(string.Format("ftp://{0}:{1}{2}", IpAddr, Port, RelatePath) + ".temp");
+                reqFTP = (FtpWebRequest)FtpWebRequest.Create(uri);
+                reqFTP.KeepAlive = false;
+                reqFTP.UseBinary = true;
+                reqFTP.Credentials = new NetworkCredential(UserName, Password);
+                reqFTP.Method = WebRequestMethods.Ftp.GetFileSize;
+                FtpWebResponse response = (FtpWebResponse)reqFTP.GetResponse();
+                long filesize = response.ContentLength;
+                return filesize;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
+        private void Rename(string filename)
+        {
+            try
+            {
+                string uri = string.Format("ftp://{0}:{1}{2}", this.IpAddr, this.Port, this.RelatePath + ".temp");
+                FtpWebRequest request = (FtpWebRequest)FtpWebRequest.Create(new Uri(uri));
+                request.Credentials = new NetworkCredential(UserName, Password);
+                request.UseBinary = true;
+                request.Method = WebRequestMethods.Ftp.Rename;
+                request.RenameTo = filename;
+                request.KeepAlive = false;
+
+                FtpWebResponse ftpWebResponse = (FtpWebResponse)request.GetResponse();
+                Stream ftpResponseStream = ftpWebResponse.GetResponseStream();
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            //finally
+            //{
+            //    if (ftpResponseStream != null)
+            //    {
+            //        ftpResponseStream.Close();
+            //    }
+            //    if (ftpWebResponse != null)
+            //    {
+            //        ftpWebResponse.Close();
+            //    }
+            //}
+        }
     }
 }

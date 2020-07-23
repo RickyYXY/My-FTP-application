@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("计算机");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("计算机");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.toolStripInfo = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
@@ -93,7 +93,7 @@
             this.btnLogin});
             this.toolStripInfo.Location = new System.Drawing.Point(0, 0);
             this.toolStripInfo.Name = "toolStripInfo";
-            this.toolStripInfo.Size = new System.Drawing.Size(1268, 27);
+            this.toolStripInfo.Size = new System.Drawing.Size(1268, 31);
             this.toolStripInfo.TabIndex = 0;
             this.toolStripInfo.Text = "toolStrip1";
             // 
@@ -109,7 +109,7 @@
             this.toolStripTextBoxIpAddr.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
             this.toolStripTextBoxIpAddr.Name = "toolStripTextBoxIpAddr";
             this.toolStripTextBoxIpAddr.Size = new System.Drawing.Size(132, 27);
-            this.toolStripTextBoxIpAddr.Text = "192.168.0.101";
+            this.toolStripTextBoxIpAddr.Text = "192.168.0.102";
             this.toolStripTextBoxIpAddr.ToolTipText = "输入主机地址";
             // 
             // toolStripLabel4
@@ -141,7 +141,7 @@
             this.toolStripTextBoxName.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
             this.toolStripTextBoxName.Name = "toolStripTextBoxName";
             this.toolStripTextBoxName.Size = new System.Drawing.Size(132, 27);
-            this.toolStripTextBoxName.Text = "yxy";
+            this.toolStripTextBoxName.Text = "ding0";
             this.toolStripTextBoxName.ToolTipText = "输入用户名";
             // 
             // toolStripSeparator2
@@ -160,7 +160,7 @@
             this.toolStripTextBoxPassword.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
             this.toolStripTextBoxPassword.Name = "toolStripTextBoxPassword";
             this.toolStripTextBoxPassword.Size = new System.Drawing.Size(132, 27);
-            this.toolStripTextBoxPassword.Text = "1125518";
+            this.toolStripTextBoxPassword.Text = "13986251398Dj";
             this.toolStripTextBoxPassword.ToolTipText = "请输入密码";
             // 
             // toolStripSeparator3
@@ -208,10 +208,10 @@
             this.treeLocal.Location = new System.Drawing.Point(4, 4);
             this.treeLocal.Margin = new System.Windows.Forms.Padding(4);
             this.treeLocal.Name = "treeLocal";
-            treeNode1.Name = "节点0";
-            treeNode1.Text = "计算机";
+            treeNode2.Name = "节点0";
+            treeNode2.Text = "计算机";
             this.treeLocal.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
+            treeNode2});
             this.treeLocal.SelectedImageIndex = 0;
             this.treeLocal.Size = new System.Drawing.Size(423, 652);
             this.treeLocal.TabIndex = 0;
@@ -291,7 +291,7 @@
             this.toolStripButtonReturn.Image = global::APPForm.Properties.Resources.Up;
             this.toolStripButtonReturn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonReturn.Name = "toolStripButtonReturn";
-            this.toolStripButtonReturn.Size = new System.Drawing.Size(123, 28);
+            this.toolStripButtonReturn.Size = new System.Drawing.Size(123, 24);
             this.toolStripButtonReturn.Text = "返回上级目录";
             this.toolStripButtonReturn.Click += new System.EventHandler(this.toolStripButtonReturn_Click);
             // 
@@ -300,7 +300,7 @@
             this.toolStripButtonRefresh.Image = global::APPForm.Properties.Resources.Refresh;
             this.toolStripButtonRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonRefresh.Name = "toolStripButtonRefresh";
-            this.toolStripButtonRefresh.Size = new System.Drawing.Size(63, 28);
+            this.toolStripButtonRefresh.Size = new System.Drawing.Size(63, 24);
             this.toolStripButtonRefresh.Text = "刷新";
             this.toolStripButtonRefresh.Click += new System.EventHandler(this.toolStripButtonRefresh_Click);
             // 
@@ -348,6 +348,7 @@
             this.menuSaveAs.Name = "menuSaveAs";
             this.menuSaveAs.Size = new System.Drawing.Size(123, 24);
             this.menuSaveAs.Text = "另存为";
+            this.menuSaveAs.Click += new System.EventHandler(this.menuSaveAs_Click);
             // 
             // menuDelete
             // 
