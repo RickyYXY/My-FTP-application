@@ -281,6 +281,7 @@ namespace APPForm
                             Height = 80
                         };
 
+                        btnTmp.AutoSize = true;
                         btnTmp.FlatAppearance.BorderSize = 0;
                         btnTmp.FlatStyle = FlatStyle.Flat;
 
