@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("计算机");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("计算机");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.toolStripInfo = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
@@ -77,7 +77,7 @@
             // toolStripInfo
             // 
             this.toolStripInfo.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.toolStripInfo.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.toolStripInfo.ImageScalingSize = new System.Drawing.Size(25, 25);
             this.toolStripInfo.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripLabel1,
             this.toolStripTextBoxIpAddr,
@@ -93,14 +93,14 @@
             this.btnLogin});
             this.toolStripInfo.Location = new System.Drawing.Point(0, 0);
             this.toolStripInfo.Name = "toolStripInfo";
-            this.toolStripInfo.Size = new System.Drawing.Size(1268, 31);
+            this.toolStripInfo.Size = new System.Drawing.Size(1268, 32);
             this.toolStripInfo.TabIndex = 0;
             this.toolStripInfo.Text = "toolStrip1";
             // 
             // toolStripLabel1
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(54, 24);
+            this.toolStripLabel1.Size = new System.Drawing.Size(54, 29);
             this.toolStripLabel1.Text = "主机：";
             // 
             // toolStripTextBoxIpAddr
@@ -108,72 +108,72 @@
             this.toolStripTextBoxIpAddr.BackColor = System.Drawing.SystemColors.Window;
             this.toolStripTextBoxIpAddr.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
             this.toolStripTextBoxIpAddr.Name = "toolStripTextBoxIpAddr";
-            this.toolStripTextBoxIpAddr.Size = new System.Drawing.Size(132, 27);
+            this.toolStripTextBoxIpAddr.Size = new System.Drawing.Size(132, 32);
             this.toolStripTextBoxIpAddr.Text = "192.168.0.102";
             this.toolStripTextBoxIpAddr.ToolTipText = "输入主机地址";
             // 
             // toolStripLabel4
             // 
             this.toolStripLabel4.Name = "toolStripLabel4";
-            this.toolStripLabel4.Size = new System.Drawing.Size(54, 24);
+            this.toolStripLabel4.Size = new System.Drawing.Size(54, 29);
             this.toolStripLabel4.Text = "端口：";
             // 
             // toolStripTextBoxPort
             // 
             this.toolStripTextBoxPort.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
             this.toolStripTextBoxPort.Name = "toolStripTextBoxPort";
-            this.toolStripTextBoxPort.Size = new System.Drawing.Size(132, 27);
+            this.toolStripTextBoxPort.Size = new System.Drawing.Size(132, 32);
             this.toolStripTextBoxPort.Text = "21";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 32);
             // 
             // toolStripLabel2
             // 
             this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(69, 24);
+            this.toolStripLabel2.Size = new System.Drawing.Size(69, 29);
             this.toolStripLabel2.Text = "用户名：";
             // 
             // toolStripTextBoxName
             // 
             this.toolStripTextBoxName.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
             this.toolStripTextBoxName.Name = "toolStripTextBoxName";
-            this.toolStripTextBoxName.Size = new System.Drawing.Size(132, 27);
+            this.toolStripTextBoxName.Size = new System.Drawing.Size(132, 32);
             this.toolStripTextBoxName.Text = "ding0";
             this.toolStripTextBoxName.ToolTipText = "输入用户名";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 32);
             // 
             // toolStripLabel3
             // 
             this.toolStripLabel3.Name = "toolStripLabel3";
-            this.toolStripLabel3.Size = new System.Drawing.Size(54, 24);
+            this.toolStripLabel3.Size = new System.Drawing.Size(54, 29);
             this.toolStripLabel3.Text = "密码：";
             // 
             // toolStripTextBoxPassword
             // 
             this.toolStripTextBoxPassword.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
             this.toolStripTextBoxPassword.Name = "toolStripTextBoxPassword";
-            this.toolStripTextBoxPassword.Size = new System.Drawing.Size(132, 27);
+            this.toolStripTextBoxPassword.Size = new System.Drawing.Size(132, 32);
             this.toolStripTextBoxPassword.Text = "13986251398Dj";
             this.toolStripTextBoxPassword.ToolTipText = "请输入密码";
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 32);
             // 
             // btnLogin
             // 
-            this.btnLogin.Image = global::APPForm.Properties.Resources.ftp;
+            this.btnLogin.Image = global::APPForm.Properties.Resources.Internet;
             this.btnLogin.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(93, 24);
+            this.btnLogin.Size = new System.Drawing.Size(98, 29);
             this.btnLogin.Text = "点击连接";
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
@@ -208,10 +208,10 @@
             this.treeLocal.Location = new System.Drawing.Point(4, 4);
             this.treeLocal.Margin = new System.Windows.Forms.Padding(4);
             this.treeLocal.Name = "treeLocal";
-            treeNode2.Name = "节点0";
-            treeNode2.Text = "计算机";
+            treeNode1.Name = "节点0";
+            treeNode1.Text = "计算机";
             this.treeLocal.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2});
+            treeNode1});
             this.treeLocal.SelectedImageIndex = 0;
             this.treeLocal.Size = new System.Drawing.Size(423, 652);
             this.treeLocal.TabIndex = 0;
@@ -237,10 +237,14 @@
             // 
             this.imgList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imgList.ImageStream")));
             this.imgList.TransparentColor = System.Drawing.Color.Transparent;
-            this.imgList.Images.SetKeyName(0, "computer.gif");
-            this.imgList.Images.SetKeyName(1, "drive.gif");
-            this.imgList.Images.SetKeyName(2, "folder.ico");
-            this.imgList.Images.SetKeyName(3, "file.ico");
+            this.imgList.Images.SetKeyName(0, "My Computer.ico");
+            this.imgList.Images.SetKeyName(1, "Local Disk.ico");
+            this.imgList.Images.SetKeyName(2, "Folder Opened.ico");
+            this.imgList.Images.SetKeyName(3, "My Documents.ico");
+            this.imgList.Images.SetKeyName(4, "computer.gif");
+            this.imgList.Images.SetKeyName(5, "drive.gif");
+            this.imgList.Images.SetKeyName(6, "folder.ico");
+            this.imgList.Images.SetKeyName(7, "file.ico");
             // 
             // tabControl2
             // 
@@ -269,20 +273,20 @@
             // 
             this.FTPflowLayoutPanel.AutoScroll = true;
             this.FTPflowLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.FTPflowLayoutPanel.Location = new System.Drawing.Point(4, 31);
+            this.FTPflowLayoutPanel.Location = new System.Drawing.Point(4, 36);
             this.FTPflowLayoutPanel.Name = "FTPflowLayoutPanel";
-            this.FTPflowLayoutPanel.Size = new System.Drawing.Size(811, 625);
+            this.FTPflowLayoutPanel.Size = new System.Drawing.Size(811, 620);
             this.FTPflowLayoutPanel.TabIndex = 0;
             // 
             // toolStripForFTP
             // 
-            this.toolStripForFTP.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.toolStripForFTP.ImageScalingSize = new System.Drawing.Size(25, 25);
             this.toolStripForFTP.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButtonReturn,
             this.toolStripButtonRefresh});
             this.toolStripForFTP.Location = new System.Drawing.Point(4, 4);
             this.toolStripForFTP.Name = "toolStripForFTP";
-            this.toolStripForFTP.Size = new System.Drawing.Size(811, 27);
+            this.toolStripForFTP.Size = new System.Drawing.Size(811, 32);
             this.toolStripForFTP.TabIndex = 2;
             this.toolStripForFTP.Text = "toolStrip2";
             // 
@@ -291,7 +295,7 @@
             this.toolStripButtonReturn.Image = global::APPForm.Properties.Resources.Up;
             this.toolStripButtonReturn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonReturn.Name = "toolStripButtonReturn";
-            this.toolStripButtonReturn.Size = new System.Drawing.Size(123, 24);
+            this.toolStripButtonReturn.Size = new System.Drawing.Size(128, 29);
             this.toolStripButtonReturn.Text = "返回上级目录";
             this.toolStripButtonReturn.Click += new System.EventHandler(this.toolStripButtonReturn_Click);
             // 
@@ -300,7 +304,7 @@
             this.toolStripButtonRefresh.Image = global::APPForm.Properties.Resources.Refresh;
             this.toolStripButtonRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonRefresh.Name = "toolStripButtonRefresh";
-            this.toolStripButtonRefresh.Size = new System.Drawing.Size(63, 24);
+            this.toolStripButtonRefresh.Size = new System.Drawing.Size(68, 29);
             this.toolStripButtonRefresh.Text = "刷新";
             this.toolStripButtonRefresh.Click += new System.EventHandler(this.toolStripButtonRefresh_Click);
             // 
